@@ -1,0 +1,46 @@
+[site]
+baseUrl = "https://zaggonaut.dev"
+
+[globalMeta]
+title = "Zaggonaut"
+description = "Retro-Inspired Theme & Built for Astro"
+longDescription = "Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and Astro."
+keywords = ["web development", "design", "technology"]
+
+[blogMeta]
+title = "Zaggonaut Blog"
+description = "Practical wisdom, unfiltered thoughts, and hot takes."
+longDescription = "Web development, tech trends, and the occasional programming mishap."
+keywords = ["web development", "design", "technology"]
+
+[projectsMeta]
+title = "Zaggonaut Projects"
+description = "A list of my web development projects and developer tools."
+longDescription = "All of my projects, including both frontend and full-stack applications."
+keywords = ["web development", "design", "technology"]
+
+[hero]
+title = "Zaggonaut"
+subtitle = "Retro-Inspired Theme &<br />Built for Astro"
+image = "https://zaggonaut.dev/michael-dam-unsplash.webp"
+ctaText = "View Projects"
+ctaUrl = "/projects"
+
+[personal]
+name = "Zaggonaut"
+profileImage = "https://zaggonaut.dev/michael-dam-unsplash.webp"
+githubProfile = "https://github.com/zaggonaut"
+twitterProfile = "https://twitter.com"
+linkedinProfile = "https://linkedin.com/"
+
+[texts]
+articlesName = "Articles"
+projectsName = "Projects"
+viewAll = "View All"
+noArticles = "No articles found."
+noProjects = "No projects found."
+
+[menu]
+home = "/"
+projects = "/projects"
+blog = "/blog"

@@ -3,8 +3,14 @@ import { GLOBAL } from "../../lib/variables";
 import Layout from "../../layouts/Layout.astro";
 import ArticleSnippet from "../../components/ArticleSnippet.astro";
 import Section from "../../components/common/Section.astro";
-import { articles } from "../../lib/list";
+import { getCollection } from 'astro:content';
+import { getFormattedConfig } from "../../lib/utils";
 
+const articles = (await getCollection('blog')).sort(
+  (a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf(),
+);
+
+const config = await getFormattedConfig("*")
 ---
 
 <Layout>
@@ -38,14 +44,14 @@ import { articles } from "../../lib/list";
     </div>
     <ul>
       {
-        articles.map((project) => (
+        articles.map((article) => (
           <li>
             <ArticleSnippet
-              title={project.title}
-              description={project.description}
-              duration={`${project.time} min`}
-              url={project.filename}
-              timestamp={project.timestamp}
+              title={article.data.title}
+              description={article.data.description}
+              duration={`${article.data.readTime} min`}
+              url={`${config.site.baseUrl}/blog/${article.data.slug}`}
+              timestamp={article.data.timestamp}
             />
           </li>
         ))

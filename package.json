@@ -16,7 +16,8 @@
     "@tailwindcss/typography": "^0.5.16",
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.10.1",
-    "tailwindcss": "^4.1.11"
+    "tailwindcss": "^4.1.11",
+    "toml": "^3.0.0"
   },
   "devDependencies": {
     "@types/node": "^22.15.33"

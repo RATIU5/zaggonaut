@@ -23,9 +23,9 @@ const { featuredProjects } = Astro.props;
           <ProjectSnippet
             title={project.title}
             description={project.description}
-            url={project.filename}
+            url={project.url}
             githubUrl={project.githubUrl}
-            liveUrl={project.liveUrl}
+            liveUrl={project.liveDemoUrl}
             tags={project.tags ?? []}
           />
         </li>

@@ -23,9 +23,9 @@ const { featuredArticles } = Astro.props;
           <ArticleSnippet
             title={article.title}
             description={article.description}
-            url={article.filename}
+            url={article.url}
             timestamp={article.timestamp}
-            duration={`${article.time} min`}
+            duration={`${article.readTime} min`}
           />
         </li>
       ))
