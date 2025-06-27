@@ -58,6 +58,11 @@
     --zag-transition-timing-function: ease-in-out;
   }
 
+  ::selection {
+    background-color: var(--color-zag-accent-light);
+    color: var(--color-zag-dark-muted);
+  }
+
   .zag-transition {
     @media (prefers-reduced-motion: no-preference) {
       transition:
