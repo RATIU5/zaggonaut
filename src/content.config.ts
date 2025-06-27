@@ -8,11 +8,7 @@ import { parse as parseToml } from "toml";
  */
 const configuration = defineCollection({
   loader: file("content/configuration.toml", {
-    parser: (text) => {
-      const parsedToml = JSON.parse(JSON.stringify(parseToml(text)))
-      console.log(parsedToml);
-      return parsedToml;
-    },
+    parser: (text) => JSON.parse(JSON.stringify(parseToml(text))),
   }),
   schema: z.object({
     /**
@@ -32,19 +28,46 @@ const configuration = defineCollection({
      */
     globalMeta: z.object({
       /**
-       * The title of the site, used in the HTML `<title>` tag and Open Graph metadata.
+       * The title of the page, used in the HTML `<title>` tag and Open Graph metadata.
        */
       title: z.string(),
 
       /**
-       * The short description of the site, used in Open Graph metadata and as a fallback for SEO.
+       * The short description of the page, used in Open Graph metadata and as a fallback for SEO.
        */
       description: z.string(),
 
       /**
-       * The long description of the site, used in Open Graph metadata and as a fallback for SEO.
+       * The long description of the page, used in Open Graph metadata and as a fallback for SEO.
        */
-      longDescription: z.string(),
+      longDescription: z.string().optional(),
+
+      /**
+       * The URL of the card image for social media sharing.
+       */
+      cardImage: z.string().url().optional(),
+
+      /**
+       * Keywords for SEO, used in the `<meta name="keywords">` tag.
+       */
+      keywords: z.array(z.string()).optional(),
+    }),
+
+    notFoundMeta: z.object({
+      /**
+       * The title of the page, used in the HTML `<title>` tag and Open Graph metadata.
+       */
+      title: z.string(),
+
+      /**
+       * The short description of the page, used in Open Graph metadata and as a fallback for SEO.
+       */
+      description: z.string(),
+
+      /**
+       * The long description of the page, used in Open Graph metadata and as a fallback for SEO.
+       */
+      longDescription: z.string().optional(),
 
       /**
        * The URL of the card image for social media sharing.
@@ -62,19 +85,19 @@ const configuration = defineCollection({
      */
     blogMeta: z.object({
       /**
-       * The title of the site, used in the HTML `<title>` tag and Open Graph metadata.
+       * The title of the page, used in the HTML `<title>` tag and Open Graph metadata.
        */
       title: z.string(),
 
       /**
-       * The short description of the site, used in Open Graph metadata and as a fallback for SEO.
+       * The short description of the page, used in Open Graph metadata and as a fallback for SEO.
        */
       description: z.string(),
 
       /**
-       * The long description of the site, used in Open Graph metadata and as a fallback for SEO.
+       * The long description of the page, used in Open Graph metadata and as a fallback for SEO.
        */
-      longDescription: z.string(),
+      longDescription: z.string().optional(),
 
       /**
        * The URL of the card image for social media sharing.
@@ -92,19 +115,19 @@ const configuration = defineCollection({
      */
     projectMeta: z.object({
       /**
-       * The title of the site, used in the HTML `<title>` tag and Open Graph metadata.
+       * The title of the page, used in the HTML `<title>` tag and Open Graph metadata.
        */
       title: z.string(),
 
       /**
-       * The short description of the site, used in Open Graph metadata and as a fallback for SEO.
+       * The short description of the page, used in Open Graph metadata and as a fallback for SEO.
        */
       description: z.string(),
 
       /**
-       * The long description of the site, used in Open Graph metadata and as a fallback for SEO.
+       * The long description of the page, used in Open Graph metadata and as a fallback for SEO.
        */
-      longDescription: z.string(),
+      longDescription: z.string().optional(),
 
       /**
        * The URL of the card image for social media sharing.
@@ -129,7 +152,7 @@ const configuration = defineCollection({
       /**
        * The subtitle displayed in the hero section.
        */
-      subtitle: z.string().default("Retro-Inspired Theme & Built for Astro"),
+      subtitle: z.string().default("Retro-Inspired Theme &<br>Built for Astro"),
 
       /**
        * The URL of the hero image, used as a background image in the hero section.
@@ -144,8 +167,7 @@ const configuration = defineCollection({
       /**
        * The URL of the call-to-action button in the hero section.
        */
-      ctaUrl: z.string().url().default("/projects"),
-
+      ctaUrl: z.string().default("/projects"),
     }),
 
     /**
@@ -156,11 +178,6 @@ const configuration = defineCollection({
        * The name of the site owner or author, used in various places throughout the site.
        */
       name: z.string().default("Zaggonaut"),
-
-      /**
-       * The profile image URL of the site owner or author, used in the header and footer.
-       */
-      profileImage: z.string().url().optional(),
 
       /**
        * The GitHub profile URL of the site owner or author.
@@ -213,9 +230,9 @@ const configuration = defineCollection({
      * This defines the URLs for the main navigation links.
      */
     menu: z.object({
-      home: z.string().url().default("/"),
-      projects: z.string().url().default("/projects"),
-      blog: z.string().url().default("/blog"),
+      home: z.string().default("/"),
+      projects: z.string().default("/projects"),
+      blog: z.string().default("/blog"),
       /** Add other menu items here **/
     }),
   }),
@@ -229,11 +246,6 @@ const blog = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./content/blogs" }),
   schema: z
     .object({
-      /**
-       * The Astro layout to use for the blog post.
-       */
-      layout: z.string().default("../../src/layouts/BlogLayout.astro"),
-    
       /**
        * The title of the blog post.
        */
@@ -252,7 +264,7 @@ const blog = defineCollection({
       /**
        * The long description of the blog post, used in Open Graph metadata and as a fallback for SEO.
        */
-      longDescription: z.string(),
+      longDescription: z.string().optional(),
 
       /**
        * The URL of the card image for social media sharing.
@@ -302,19 +314,14 @@ const project = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./content/projects" }),
   schema: z.object({
     /**
-     * The Astro layout to use for the project page.
+     * The title of the project.
      */
-    layout: z.string().default("../../src/layouts/ProjectLayout.astro"),
-
+    title: z.string(),
+    
     /**
      * The slug for the project, used in the URL.
      */
     slug: z.string().optional(),
-
-    /**
-     * The title of the project.
-     */
-    title: z.string(),
 
     /**
      * The short description of the project, used in Open Graph metadata and as a fallback for SEO.
@@ -324,7 +331,7 @@ const project = defineCollection({
     /**
      * The long description of the project, used in Open Graph metadata and as a fallback for SEO.
      */
-    longDescription: z.string(),
+    longDescription: z.string().optional(),
 
     /**
      * The URL of the card image for social media sharing.
@@ -355,7 +362,19 @@ const project = defineCollection({
      * Whether the project is featured on the homepage.
      */
     featured: z.boolean().default(false),
-  }),
+  }).transform((data) => {
+      const slug =
+        data.slug ??
+        data.title
+          .toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[^\w-]/g, "");
+      const newData = {
+        ...data,
+        slug,
+      };
+      return newData;
+    }),
 });
 
 export const collections = { blog, project, configuration };

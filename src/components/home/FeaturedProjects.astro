@@ -1,6 +1,6 @@
 ---
 import type { ProjectFrontmatter } from "../../lib/types";
-import { GLOBAL } from "../../lib/variables";
+import { getConfigurationCollection } from "../../lib/utils";
 import Anchor from "../common/Anchor.astro";
 import ProjectSnippet from "../ProjectSnippet.astro";
 
@@ -9,15 +9,16 @@ type Props = {
 }
 
 const { featuredProjects } = Astro.props;
+const { data: config } = await getConfigurationCollection();
 ---
 
 <div class="flex justify-between items-center w-full">
-  <h3 class="font-display text-lg sm:text-xl leading-loose">{GLOBAL.projectsName}</h3>
-  <Anchor url="/projects" class="text-base">{GLOBAL.viewAll}</Anchor>
+  <h3 class="font-display text-lg sm:text-xl leading-loose">{config.texts.projectsName}</h3>
+  <Anchor url="/projects" class="text-base">{config.texts.viewAll}</Anchor>
 </div>
 <ul class="my-8">
   {
-    (featuredProjects.length === 0 && <p>{GLOBAL.noProjects}</p>) ||
+    (featuredProjects.length === 0 && <p>{config.texts.noProjects}</p>) ||
       featuredProjects.map((project) => (
         <li>
           <ProjectSnippet

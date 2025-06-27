@@ -1,51 +1,64 @@
 ---
-import { projects } from "../../lib/list";
+import { getCollection } from "astro:content";
+import { getConfigurationCollection } from "../../lib/utils";
 import Section from "../../components/common/Section.astro";
 import ProjectSnippet from "../../components/ProjectSnippet.astro";
 import Layout from "../../layouts/Layout.astro";
-import { GLOBAL } from "../../lib/variables";
+
+const projects = (await getCollection("project")).sort(
+  (a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf(),
+);
+
+const { data: config } = await getConfigurationCollection();
 ---
 
 <Layout>
   <Fragment slot="head">
-    <title>{GLOBAL.projectTitle} • {GLOBAL.username}</title>
+    <title>{config.projectMeta.title}</title>
     <meta
       name="description"
-      content={GLOBAL.projectLongDescription}
+      content={config.projectMeta.longDescription ?? config.projectMeta.description}
     />
-    <meta property="og:title" content={`${GLOBAL.projectTitle} • ${GLOBAL.username}`} />
+    <meta property="og:title" content={config.projectMeta.title} />
     <meta
       property="og:description"
-      content={GLOBAL.projectShortDescription}
+      content={config.projectMeta.description}
     />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={`${GLOBAL.rootUrl}/projects`} />
+    {config.projectMeta.keywords && (
+      <meta name="keywords" content={config.projectMeta.keywords.join(", ")} />
+    )}
+    {config.projectMeta.cardImage && (
+      <meta property="og:image" content={config.projectMeta.cardImage} />
+    )}
+    <meta property="og:url" content={`${config.site.baseUrl}/projects`} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${GLOBAL.projectTitle} • ${GLOBAL.username}`} />
+    <meta name="twitter:title" content={config.projectMeta.title} />
     <meta
       name="twitter:description"
-      content={GLOBAL.projectShortDescription}
+      content={config.projectMeta.description}
     />
-    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
+    {config.projectMeta.cardImage && (
+      <meta name="twitter:image" content={config.projectMeta.cardImage} />
+    )}
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
-    <link rel="canonical" href={`${GLOBAL.rootUrl}/projects`} />
+    <link rel="canonical" href={`${config.site.baseUrl}/projects`} />
   </Fragment>
   <Section class="py-4 my-8">
     <div class="flex items-center gap-4 pt-8 pb-16">
-      <h1 class="font-display text-3xl sm:text-4xl leading-loose">{GLOBAL.projectsName}</h1>
+      <h1 class="font-display text-3xl sm:text-4xl leading-loose">{config.texts.projectsName}</h1>
     </div>
     <ul>
       {
         projects.map((project) => (
           <li>
             <ProjectSnippet
-              title={project.title}
-              description={project.description}
-              url={project.filename}
-              githubUrl={project.githubUrl}
-              liveUrl={project.liveUrl}
-              tags={project.tags ?? []}
+              title={project.data.title}
+              description={project.data.description}
+              url={`${config.site.baseUrl}/projects/${project.data.slug}`}
+              githubUrl={project.data.githubUrl}
+              liveUrl={project.data.liveDemoUrl}
+              tags={project.data.tags ?? []}
             />
           </li>
         ))

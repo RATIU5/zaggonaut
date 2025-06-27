@@ -4,11 +4,12 @@ import Hero from "../components/home/Hero.astro";
 import Section from "../components/common/Section.astro";
 import FeaturedProjects from "../components/home/FeaturedProjects.astro";
 import FeaturedArticles from "../components/home/FeaturedArticles.astro";
-import { getFormattedConfig } from "../lib/utils";
+import { getConfigurationCollection } from "../lib/utils";
 import { getCollection } from "astro:content";
 
 
-const config = await getFormattedConfig("*");
+const { data: config } = await getConfigurationCollection();
+
 const featuredProjects = (await getCollection("project", (e) => e.data.featured)).map((e) => ({
   ...e.data,
   url: `${config.site.baseUrl}/projects/${e.data.slug}`,
@@ -24,28 +25,29 @@ const featuredArticles = (await getCollection("blog", (e) => e.data.featured)).m
     <title>{config.globalMeta.title}</title>
     <meta
       name="description"
-      content={config.globalMeta.longDescription}
+      content={config.globalMeta.longDescription ?? config.globalMeta.description}
     />
-    <meta
-      property="og:title"
-      content={config.globalMeta.title}
-    />
+    <meta property="og:title" content={config.globalMeta.title} />
     <meta
       property="og:description"
       content={config.globalMeta.description}
     />
-    <meta property="og:image" content={config.globalMeta.cardImage} />
+    {config.globalMeta.keywords && (
+      <meta name="keywords" content={config.globalMeta.keywords.join(", ")} />
+    )}
+    {config.globalMeta.cardImage && (
+      <meta property="og:image" content={config.globalMeta.cardImage} />
+    )}
     <meta property="og:url" content={config.site.baseUrl} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content={config.globalMeta.title}
-    />
+    <meta name="twitter:title" content={config.globalMeta.title} />
     <meta
       name="twitter:description"
       content={config.globalMeta.description}
     />
-    <meta name="twitter:image" content={config.globalMeta.cardImage} />
+    {config.globalMeta.cardImage && (
+      <meta name="twitter:image" content={config.globalMeta.cardImage} />
+    )}
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
     <link rel="canonical" href={config.site.baseUrl} />

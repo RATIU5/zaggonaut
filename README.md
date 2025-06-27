@@ -18,6 +18,7 @@ pnpm create astro@latest --template RATIU5/zaggonaut
 
 ## Features
 
+- Content Collections
 - Dark & light mode
 - Customizable colors
 - 100 / 100 Lighthouse score
@@ -45,31 +46,15 @@ Zaggonaut uses the following CSS variables:
 - `--color-zag-accent-dark`: The dark accent color of the theme
 - `--color-zag-accent-dark-muted`: The dark accent color of the theme with a slight opacity
 
-### Text
+### Content Customization
 
-You can customize the text of the theme by editing the `src/lib/variables.ts` file.
-This file contains all of the text used throughout the theme.
+95% of the content you'll want to customize will be located inside the `content` directory. Let's break down the specific files/directories you may want to edit:
 
-For example, you can change the `username` variable to your own username and everywhere the username is used will be replaced with your username.
+- `content/configuration.toml`: This file contains the site configuration, such as metadata, social links, and text content.
 
-```typescript
-export const GLOBAL = {
-  // Site metadata
-  username: "zaggonaut-fan123",
+- `content/blogs/`: This directory contains your blog posts. Each post is a Markdown file with metadata in the frontmatter at the top.
 
-  // ...
-
-  // Profile image
-  profileImage: "profile.webp",
-
-  // Menu items
-  menu: {
-    home: "/",
-    projects: "/projects",
-    blog: "/blog",
-  }
-};
-```
+- `content/projects/`: This directory contains your projects. Each project is a Markdown file also with metadata in the frontmatter.
 
 ## Ready To Try?
 
