@@ -1,23 +1,25 @@
 ---
-import { GLOBAL } from "../../lib/variables";
+import { getConfigurationCollection } from "../../lib/utils";
+
+const { data: config } = await getConfigurationCollection();
 ---
 
 <div class="flex flex-col items-center sm:flex-row gap-8">
   <img
-    src={GLOBAL.profileImage}
-    alt={GLOBAL.username}
+    src={config.hero.image}
+    alt={`${config.hero.title} Profile Image`}
     class="rounded-full max-w-40 w-40 h-40 mb-4 z-0 grayscale"
   />
   <div>
     <h1
       class="text-3xl sm:text-4xl font-display font-semibold opsz text-center sm:text-left"
     >
-      {GLOBAL.username}
+      {config.hero.title}
     </h1>
     <h2
       class="text-center text-xl sm:text-2xl font-mono font-medium sm:text-left"
     >
-      <p set:html={GLOBAL.shortDescription}/>
+      <p set:html={config.hero.subtitle}/>
     </h2>
   </div>
 </div>

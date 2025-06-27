@@ -1,9 +1,43 @@
 ---
 import Section from "../components/common/Section.astro";
 import Layout from "../layouts/Layout.astro";
+import { getConfigurationCollection } from "../lib/utils";
+
+const { data: config } = await getConfigurationCollection();
 ---
 
 <Layout>
+  <Fragment slot="head">
+    <title>{config.notFoundMeta.title}</title>
+    <meta
+      name="description"
+      content={config.notFoundMeta.longDescription ?? config.notFoundMeta.description}
+    />
+    <meta property="og:title" content={config.notFoundMeta.title} />
+    <meta
+      property="og:description"
+      content={config.notFoundMeta.description}
+    />
+    {config.notFoundMeta.keywords && (
+      <meta name="keywords" content={config.notFoundMeta.keywords.join(", ")} />
+    )}
+    {config.notFoundMeta.cardImage && (
+      <meta property="og:image" content={config.notFoundMeta.cardImage} />
+    )}
+    <meta property="og:url" content={config.site.baseUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={config.notFoundMeta.title} />
+    <meta
+      name="twitter:description"
+      content={config.notFoundMeta.description}
+    />
+    {config.notFoundMeta.cardImage && (
+      <meta name="twitter:image" content={config.notFoundMeta.cardImage} />
+    )}
+    <meta http-equiv="content-language" content="en" />
+    <meta name="language" content="English" />
+    <link rel="canonical" href={config.site.baseUrl} />
+  </Fragment>
   <Section class="mt-16">
     <h1 class="text-3xl sm:text-4xl font-display pb-8">
       Well, this is awkward

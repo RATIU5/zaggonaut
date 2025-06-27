@@ -1,57 +1,4 @@
-import fs from "node:fs/promises";
-import { GLOBAL } from "./variables";
-
-type MarkdownData<T extends object> = {
-  frontmatter: T;
-  file: string;
-  url: string;
-};
-
-
-/**
- * This function processes the content of a directory and returns an array of processed content.
- * It takes a content type, a function to process the content, and an optional directory.
- * If no directory is provided, it defaults to the current working directory.
- * 
- * @param contentType the type of content to process
- * @param processFn the function to process the content
- * @param dir the directory to process the content from
- * @returns a promise that resolves to an array of processed content
- */
-export const processContentInDir = async <T extends object, K>(
-  contentType: "projects" | "blog",
-  processFn: (data: MarkdownData<T>) => K,
-  dir: string = process.cwd(),
-) => {
-  const files = await fs.readdir(dir + `/src/pages/${contentType}`);
-  const markdownFiles = files
-    .filter((file: string) => file.endsWith(".md"))
-    .map((file) => file.split(".")[0]);
-  const readMdFileContent = async (file: string) => {
-    if (contentType === "projects") {
-      const content = import.meta
-        .glob(`/src/pages/projects/*.md`)
-        [`/src/pages/projects/${file}.md`]();
-      const data = (await content) as {
-        frontmatter: T;
-        file: string;
-        url: string;
-      };
-      return processFn(data);
-    } else {
-      const content = import.meta
-        .glob(`/src/pages/blog/*.md`)
-        [`/src/pages/blog/${file}.md`]();
-      const data = (await content) as {
-        frontmatter: T;
-        file: string;
-        url: string;
-      };
-      return processFn(data);
-    }
-  };
-  return await Promise.all(markdownFiles.map(readMdFileContent));
-};
+import { getCollection, type CollectionEntry } from "astro:content";
 
 /**
  * Shortens a string by removing words at the end until it fits within a certain length.
@@ -70,23 +17,28 @@ export const getShortDescription = (content: string, maxLength = 20) => {
  * @param timestamp the timestamp to process
  * @returns a string representing the processed timestamp
  */
-export const processArticleDate = (timestamp: string) => {
-  const date = new Date(timestamp);
+export const processArticleDate = (date: Date) => {
   const monthSmall = date.toLocaleString("default", { month: "short" });
   const day = date.getDate();
   const year = date.getFullYear();
   return `${monthSmall} ${day}, ${year}`;
 };
 
+let configCache: CollectionEntry<'configuration'> | null = null;
+
 /**
- * Generates a source URL for a content item. The URL is used in meta tags and social media cards.
- * @param sourceUrl the source URL of the content
- * @param contentType the type of content (either "projects" or "blog")
- * @returns a string representing the source URL with the appropriate domain
+ * Retrieves the configuration collection entry from the content directory.
+ * It checks if the configuration is already cached to avoid multiple reads.
+ * There can only be one configuration file, so it throws an error if there are multiple or none.
+ * @returns the configuration collection entry
  */
-export const generateSourceUrl = (
-  sourceUrl: string,
-  contentType: "projects" | "blog",
-) => {
-  return `${GLOBAL.rootUrl}/${contentType}/${sourceUrl}`;
-};
+export const getConfigurationCollection = async (): Promise<CollectionEntry<'configuration'>> => {
+  if (configCache) return configCache;
+
+  const configs = await getCollection("configuration");
+  if (configs.length !== 1) {
+    throw new Error("Configuration file not found or multiple configuration files present.");
+  }
+  configCache = configs[0];
+  return configs[0];
+}

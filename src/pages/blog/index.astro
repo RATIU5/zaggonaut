@@ -1,51 +1,65 @@
 ---
-import { GLOBAL } from "../../lib/variables";
+import { getCollection } from "astro:content";
+import { getConfigurationCollection } from "../../lib/utils";
 import Layout from "../../layouts/Layout.astro";
 import ArticleSnippet from "../../components/ArticleSnippet.astro";
 import Section from "../../components/common/Section.astro";
-import { articles } from "../../lib/list";
 
+const articles = (await getCollection("blog")).sort(
+  (a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf(),
+);
+
+const { data: config } = await getConfigurationCollection();
 ---
 
 <Layout>
-  <Fragment slot="head">
-    <title>{GLOBAL.blogTitle} • {GLOBAL.username}</title>
+    <Fragment slot="head">
+    <title>{config.blogMeta.title}</title>
     <meta
       name="description"
-      content={GLOBAL.blogLongDescription}
+      content={config.blogMeta.longDescription ?? config.blogMeta.description}
     />
-    <meta property="og:title" content={`${GLOBAL.blogTitle} • ${GLOBAL.username}`} />
+    <meta property="og:title" content={config.blogMeta.title} />
     <meta
       property="og:description"
-      content={GLOBAL.blogShortDescription}
+      content={config.blogMeta.description}
     />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={`${GLOBAL.rootUrl}/blog`} />
+    {config.blogMeta.keywords && (
+      <meta name="keywords" content={config.blogMeta.keywords.join(", ")} />
+    )}
+    {config.blogMeta.cardImage && (
+      <meta property="og:image" content={config.blogMeta.cardImage} />
+    )}
+    <meta property="og:url" content={`${config.site.baseUrl}/blog`} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${GLOBAL.blogTitle} • ${GLOBAL.username}`} />
+    <meta name="twitter:title" content={config.blogMeta.title} />
     <meta
       name="twitter:description"
-      content={GLOBAL.blogShortDescription}
+      content={config.blogMeta.description}
     />
-    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
+    {config.blogMeta.cardImage && (
+      <meta name="twitter:image" content={config.blogMeta.cardImage} />
+    )}
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
-    <link rel="canonical" href={`${GLOBAL.rootUrl}/blog`} />
+    <link rel="canonical" href={`${config.site.baseUrl}/blog`} />
   </Fragment>
   <Section class="my-8">
     <div class="flex items-center gap-4 pt-8 pb-16">
-      <h1 class="font-display text-3xl sm:text-4xl leading-loose">{GLOBAL.articlesName}</h1>
+      <h1 class="font-display text-3xl sm:text-4xl leading-loose">
+        {config.texts.articlesName}
+      </h1>
     </div>
     <ul>
       {
-        articles.map((project) => (
+        articles.map((article) => (
           <li>
             <ArticleSnippet
-              title={project.title}
-              description={project.description}
-              duration={`${project.time} min`}
-              url={project.filename}
-              timestamp={project.timestamp}
+              title={article.data.title}
+              description={article.data.description}
+              duration={`${article.data.readTime} min`}
+              url={`${config.site.baseUrl}/blog/${article.data.slug}`}
+              timestamp={article.data.timestamp}
             />
           </li>
         ))

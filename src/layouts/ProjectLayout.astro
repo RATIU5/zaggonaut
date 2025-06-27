@@ -1,36 +1,60 @@
 ---
-import { getShortDescription, generateSourceUrl } from "../lib/utils";
+import { getConfigurationCollection, processArticleDate } from "../lib/utils";
 import type { ProjectFrontmatter } from "../lib/types";
-import type { MarkdownLayoutProps } from "astro";
 import Prose from "../components/Prose.astro";
 import Layout from "./Layout.astro";
 import Section from "../components/common/Section.astro";
 import Anchor from "../components/common/Anchor.astro";
-import { GLOBAL } from "../lib/variables";
 
-
-type Props = MarkdownLayoutProps<ProjectFrontmatter>;
+type Props = { frontmatter: ProjectFrontmatter };
 
 const { frontmatter } = Astro.props;
-const shortDescription = getShortDescription(frontmatter.description);
-const sourceUrl = generateSourceUrl(frontmatter.filename, "projects");
+const { data: config } = await getConfigurationCollection();
 ---
 
 <Layout>
   <Fragment slot="head">
-    <title>{frontmatter.title} • {GLOBAL.username}</title>
-    <meta name="description" content={frontmatter.description} />
-    <meta property="og:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
-    <meta property="og:description" content={shortDescription} />
-    <meta property="og:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
-    <meta property="og:url" content={frontmatter.url} />
+    <title>{`${frontmatter.title} • ${config.personal.name}`}</title>
+    <meta
+      name="description"
+      content={frontmatter.longDescription ?? frontmatter.description}
+    />
+    <meta
+      property="og:title"
+      content={`${frontmatter.title} • ${config.personal.name}`}
+    />
+    <meta property="og:description" content={frontmatter.description} />
+    {
+      frontmatter.tags && (
+        <meta name="keywords" content={frontmatter.tags.join(", ")} />
+      )
+    }
+    {
+      frontmatter.cardImage && (
+        <meta property="og:image" content={frontmatter.cardImage} />
+      )
+    }
+    <meta
+      property="og:url"
+      content={`${config.site.baseUrl}/projects/${frontmatter.slug}`}
+    />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={`${frontmatter.title} • ${GLOBAL.username}`} />
-    <meta name="twitter:description" content={shortDescription} />
-    <meta name="twitter:image" content={`${GLOBAL.rootUrl}/${GLOBAL.profileImage}`} />
+    <meta
+      name="twitter:title"
+      content={`${frontmatter.title} • ${config.personal.name}`}
+    />
+    <meta name="twitter:description" content={frontmatter.description} />
+    {
+      frontmatter.cardImage && (
+        <meta name="twitter:image" content={frontmatter.cardImage} />
+      )
+    }
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
-    <link rel="canonical" href={sourceUrl} />
+    <link
+      rel="canonical"
+      href={`${config.site.baseUrl}/projects/${frontmatter.slug}`}
+    />
   </Fragment>
   <Section class="mt-8">
     <div class="flex flex-col gap-4 mt-8 mb-16">
@@ -57,9 +81,9 @@ const sourceUrl = generateSourceUrl(frontmatter.filename, "projects");
           ) : null
         }
         {
-          frontmatter.liveUrl ? (
-            <Anchor url={frontmatter.liveUrl} class="text-base" external>
-              Live
+          frontmatter.liveDemoUrl ? (
+            <Anchor url={frontmatter.liveDemoUrl} class="text-base" external>
+              Demo
             </Anchor>
           ) : null
         }

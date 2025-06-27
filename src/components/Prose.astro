@@ -1,5 +1,14 @@
+---
+type Props = {
+  class?: string;
+};
+
+const { class: customClass } = Astro.props;
+---
+
 <div
   class="w-full font-mono prose prose-headings:font-mono prose-img:rounded-none prose-p:text-[var(--color-zag-dark)] prose-p:dark:text-[var(--color-zag-light)]  prose-a:underline-offset-4 prose-h1:text-2xl prose-a:text-[var(--color-zag-dark)] dark:prose-a:text-[var(--color-zag-light)] prose-headings:text-[var(--color-zag-dark)] prose-headings:dark:text-[var(--color-zag-light)] prose-p:text-justify prose-code:text-[var(--color-zag-dark)] dark:prose-code:text-[var(--color-zag-light)] prose-h2:text-2xl prose-h3:text-xl prose-h4:text-lg prose-h5:text-base prose-h6:text-sm prose-strong:text-[var(--color-zag-dark)] dark:prose-strong:text-[var(--color-zag-light)] prose-li:text-[var(--color-zag-dark)] dark:prose-li:text-[var(--color-zag-light)] prose-ul:marker:text-[var(--color-zag-dark)] prose-ul:dark:marker:text-[var(--color-zag-light)] prose-ol:marker:text-[var(--color-zag-dark)] prose-ol:dark:marker:text-[var(--color-zag-light)] prose-a:offset-[var(--zag-offset)] prose-a:focus:outline-2 prose-a:focus:outline-offset-2 prose-a:focus:outline-zag-dark prose-a:dark:focus:outline-zag-light"
+  class:list={customClass ? [customClass] : []}
 >
   <slot />
 </div>
