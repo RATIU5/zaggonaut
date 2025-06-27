@@ -2,7 +2,7 @@
 # we need to prefix all configuration keys with an underscore.
 
 [_.site]
-baseUrl = "http://localhost:4321"
+baseUrl = "http://zaggonaut.dev"
 
 [_.globalMeta]
 title = "Zaggonaut"
