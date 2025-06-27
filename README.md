@@ -2,6 +2,11 @@
 
 Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and of course, Astro.
 
+> [!NOTE]  
+> Introducing Zaggonaut 2.0!
+> This is a complete rewrite of the internal content layer, making use of Astro's new Content Collections feature, among other enhancements.
+
+
 ## Getting Started
 
 [View the demo](https://zaggonaut.dev) or [view the source code](https://github.com/RATIU5/zaggonaut).
