@@ -38,7 +38,7 @@ const { title, description, url, githubUrl, liveUrl, tags } = Astro.props;
   <p class="zag-text zag-transition">
     {description}
   </p>
-  <div class="flex flex-row wrap gap-2">
+  <div class="flex flex-row flex-wrap gap-2">
     {
       tags.map((tag) => (
         <span class="-zag-text -zag-bg zag-transition px-2 py-1 text-sm font-semibold">
