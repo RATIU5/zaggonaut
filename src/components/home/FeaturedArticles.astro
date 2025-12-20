@@ -5,9 +5,8 @@ import ArticleSnippet from "../ArticleSnippet.astro";
 import Anchor from "../common/Anchor.astro";
 
 type Props = {
-  featuredArticles: Array<ArticleFrontmatter>;
-}
-
+	featuredArticles: Array<ArticleFrontmatter>;
+};
 
 const { featuredArticles } = Astro.props;
 const { data: config } = await getConfigurationCollection();

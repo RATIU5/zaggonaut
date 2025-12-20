@@ -11,19 +11,24 @@ const { data: config } = await getConfigurationCollection();
     <title>{config.notFoundMeta.title}</title>
     <meta
       name="description"
-      content={config.notFoundMeta.longDescription ?? config.notFoundMeta.description}
+      content={config.notFoundMeta.longDescription ??
+        config.notFoundMeta.description}
     />
     <meta property="og:title" content={config.notFoundMeta.title} />
-    <meta
-      property="og:description"
-      content={config.notFoundMeta.description}
-    />
-    {config.notFoundMeta.keywords && (
-      <meta name="keywords" content={config.notFoundMeta.keywords.join(", ")} />
-    )}
-    {config.notFoundMeta.cardImage && (
-      <meta property="og:image" content={config.notFoundMeta.cardImage} />
-    )}
+    <meta property="og:description" content={config.notFoundMeta.description} />
+    {
+      config.notFoundMeta.keywords && (
+        <meta
+          name="keywords"
+          content={config.notFoundMeta.keywords.join(", ")}
+        />
+      )
+    }
+    {
+      config.notFoundMeta.cardImage && (
+        <meta property="og:image" content={config.notFoundMeta.cardImage} />
+      )
+    }
     <meta property="og:url" content={config.site.baseUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={config.notFoundMeta.title} />
@@ -31,9 +36,11 @@ const { data: config } = await getConfigurationCollection();
       name="twitter:description"
       content={config.notFoundMeta.description}
     />
-    {config.notFoundMeta.cardImage && (
-      <meta name="twitter:image" content={config.notFoundMeta.cardImage} />
-    )}
+    {
+      config.notFoundMeta.cardImage && (
+        <meta name="twitter:image" content={config.notFoundMeta.cardImage} />
+      )
+    }
     <meta http-equiv="content-language" content="en" />
     <meta name="language" content="English" />
     <link rel="canonical" href={config.site.baseUrl} />

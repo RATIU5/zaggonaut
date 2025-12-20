@@ -3,11 +3,11 @@ import { processArticleDate } from "../lib/utils";
 import Anchor from "./common/Anchor.astro";
 
 export type Props = {
-  title: string;
-  description: string;
-  url: string;
-  duration?: string;
-  timestamp?: Date;
+	title: string;
+	description: string;
+	url: string;
+	duration?: string;
+	timestamp?: Date;
 };
 
 const { title, description, url, duration, timestamp } = Astro.props;

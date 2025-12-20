@@ -2,12 +2,12 @@
 import Anchor from "./common/Anchor.astro";
 
 export type Props = {
-  title: string;
-  description: string;
-  url: string;
-  githubUrl?: string;
-  liveUrl?: string;
-  tags: string[];
+	title: string;
+	description: string;
+	url: string;
+	githubUrl?: string;
+	liveUrl?: string;
+	tags: string[];
 };
 
 const { title, description, url, githubUrl, liveUrl, tags } = Astro.props;

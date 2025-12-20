@@ -1,22 +1,25 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Hero from "../components/home/Hero.astro";
-import Section from "../components/common/Section.astro";
-import FeaturedProjects from "../components/home/FeaturedProjects.astro";
-import FeaturedArticles from "../components/home/FeaturedArticles.astro";
-import { getConfigurationCollection } from "../lib/utils";
 import { getCollection } from "astro:content";
-
+import Section from "../components/common/Section.astro";
+import FeaturedArticles from "../components/home/FeaturedArticles.astro";
+import FeaturedProjects from "../components/home/FeaturedProjects.astro";
+import Hero from "../components/home/Hero.astro";
+import Layout from "../layouts/Layout.astro";
+import { getConfigurationCollection } from "../lib/utils";
 
 const { data: config } = await getConfigurationCollection();
 
-const featuredProjects = (await getCollection("project", (e) => e.data.featured)).map((e) => ({
-  ...e.data,
-  url: `${config.site.baseUrl}/projects/${e.data.slug}`,
+const featuredProjects = (
+	await getCollection("project", (e) => e.data.featured)
+).map((e) => ({
+	...e.data,
+	url: `${config.site.baseUrl}/projects/${e.data.slug}`,
 }));
-const featuredArticles = (await getCollection("blog", (e) => e.data.featured)).map((e) => ({
-  ...e.data,
-  url: `${config.site.baseUrl}/blog/${e.data.slug}`
+const featuredArticles = (
+	await getCollection("blog", (e) => e.data.featured)
+).map((e) => ({
+	...e.data,
+	url: `${config.site.baseUrl}/blog/${e.data.slug}`,
 }));
 ---
 

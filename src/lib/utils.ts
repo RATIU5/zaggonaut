@@ -1,4 +1,4 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import { type CollectionEntry, getCollection } from "astro:content";
 
 /**
  * Shortens a string by removing words at the end until it fits within a certain length.
@@ -7,9 +7,11 @@ import { getCollection, type CollectionEntry } from "astro:content";
  * @returns a shortened version of the content
  */
 export const getShortDescription = (content: string, maxLength = 20) => {
-  const splitByWord = content.split(" ");
-  const length = splitByWord.length;
-  return length > maxLength ? splitByWord.slice(0, maxLength).join(" ") + "..." : content;
+	const splitByWord = content.split(" ");
+	const length = splitByWord.length;
+	return length > maxLength
+		? splitByWord.slice(0, maxLength).join(" ") + "..."
+		: content;
 };
 
 /**
@@ -18,13 +20,13 @@ export const getShortDescription = (content: string, maxLength = 20) => {
  * @returns a string representing the processed timestamp
  */
 export const processArticleDate = (date: Date) => {
-  const monthSmall = date.toLocaleString("default", { month: "short" });
-  const day = date.getDate();
-  const year = date.getFullYear();
-  return `${monthSmall} ${day}, ${year}`;
+	const monthSmall = date.toLocaleString("default", { month: "short" });
+	const day = date.getDate();
+	const year = date.getFullYear();
+	return `${monthSmall} ${day}, ${year}`;
 };
 
-let configCache: CollectionEntry<'configuration'> | null = null;
+let configCache: CollectionEntry<"configuration"> | null = null;
 
 /**
  * Retrieves the configuration collection entry from the content directory.
@@ -32,13 +34,17 @@ let configCache: CollectionEntry<'configuration'> | null = null;
  * There can only be one configuration file, so it throws an error if there are multiple or none.
  * @returns the configuration collection entry
  */
-export const getConfigurationCollection = async (): Promise<CollectionEntry<'configuration'>> => {
-  if (configCache) return configCache;
+export const getConfigurationCollection = async (): Promise<
+	CollectionEntry<"configuration">
+> => {
+	if (configCache) return configCache;
 
-  const configs = await getCollection("configuration");
-  if (configs.length !== 1) {
-    throw new Error("Configuration file not found or multiple configuration files present.");
-  }
-  configCache = configs[0];
-  return configs[0];
-}
+	const configs = await getCollection("configuration");
+	if (configs.length !== 1) {
+		throw new Error(
+			"Configuration file not found or multiple configuration files present.",
+		);
+	}
+	configCache = configs[0];
+	return configs[0];
+};

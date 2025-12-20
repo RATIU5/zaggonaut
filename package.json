@@ -1,25 +1,25 @@
 {
-  "name": "zaggonaut",
-  "type": "module",
-  "private": true,
-  "version": "0.0.1",
-  "packageManager": "pnpm@10.6.0",
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro",
-    "preinstall": "npx only-allow pnpm"
-  },
-  "dependencies": {
-    "@astrojs/tailwind": "^6.0.2",
-    "@tailwindcss/typography": "^0.5.16",
-    "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.10.1",
-    "tailwindcss": "^4.1.11",
-    "toml": "^3.0.0"
-  },
-  "devDependencies": {
-    "@types/node": "^22.15.33"
-  }
+	"name": "zaggonaut",
+	"type": "module",
+	"private": true,
+	"version": "0.0.1",
+	"packageManager": "pnpm@10.6.0",
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"preview": "astro preview",
+		"astro": "astro",
+		"preinstall": "npx only-allow pnpm"
+	},
+	"dependencies": {
+		"@astrojs/tailwind": "^6.0.2",
+		"@tailwindcss/typography": "^0.5.19",
+		"@tailwindcss/vite": "^4.1.18",
+		"astro": "^5.16.6",
+		"tailwindcss": "^4.1.18",
+		"toml": "^3.0.0"
+	},
+	"devDependencies": {
+		"@types/node": "^22.19.3"
+	}
 }

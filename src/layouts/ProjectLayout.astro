@@ -1,10 +1,10 @@
 ---
-import { getConfigurationCollection, processArticleDate } from "../lib/utils";
-import type { ProjectFrontmatter } from "../lib/types";
-import Prose from "../components/Prose.astro";
-import Layout from "./Layout.astro";
-import Section from "../components/common/Section.astro";
 import Anchor from "../components/common/Anchor.astro";
+import Section from "../components/common/Section.astro";
+import Prose from "../components/Prose.astro";
+import type { ProjectFrontmatter } from "../lib/types";
+import { getConfigurationCollection, processArticleDate } from "../lib/utils";
+import Layout from "./Layout.astro";
 
 type Props = { frontmatter: ProjectFrontmatter };
 
