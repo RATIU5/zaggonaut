@@ -1,8 +1,8 @@
 ---
-import { getConfigurationCollection, processArticleDate } from "../lib/utils";
-import type { ArticleFrontmatter } from "../lib/types";
 import Section from "../components/common/Section.astro";
 import Prose from "../components/Prose.astro";
+import type { ArticleFrontmatter } from "../lib/types";
+import { getConfigurationCollection, processArticleDate } from "../lib/utils";
 import Layout from "./Layout.astro";
 
 type Props = { frontmatter: ArticleFrontmatter };

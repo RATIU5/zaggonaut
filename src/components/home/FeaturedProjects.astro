@@ -5,8 +5,8 @@ import Anchor from "../common/Anchor.astro";
 import ProjectSnippet from "../ProjectSnippet.astro";
 
 type Props = {
-  featuredProjects: Array<ProjectFrontmatter>;
-}
+	featuredProjects: Array<ProjectFrontmatter>;
+};
 
 const { featuredProjects } = Astro.props;
 const { data: config } = await getConfigurationCollection();

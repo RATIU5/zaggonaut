@@ -1,12 +1,12 @@
 ---
 import { getCollection } from "astro:content";
-import { getConfigurationCollection } from "../../lib/utils";
 import Section from "../../components/common/Section.astro";
 import ProjectSnippet from "../../components/ProjectSnippet.astro";
 import Layout from "../../layouts/Layout.astro";
+import { getConfigurationCollection } from "../../lib/utils";
 
 const projects = (await getCollection("project")).sort(
-  (a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf(),
+	(a, b) => b.data.timestamp.valueOf() - a.data.timestamp.valueOf(),
 );
 
 const { data: config } = await getConfigurationCollection();
