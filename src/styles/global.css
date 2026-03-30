@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-@variant dark (&:where(.dark, .dark *));
+@custom-variant dark (&:where(.dark, .dark *));
 
 @font-face {
   font-family: "Literata Variable";
@@ -10,7 +10,8 @@
   font-weight: 200 900;
   src: url(https://cdn.jsdelivr.net/fontsource/fonts/literata:vf@latest/latin-opsz-normal.woff2)
     format("woff2-variations");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
@@ -20,24 +21,28 @@
   font-style: normal;
   font-display: swap;
   font-weight: 400;
-  src: url(https://cdn.jsdelivr.net/fontsource/fonts/press-start-2p@latest/latin-400-normal.woff2)
-      format("woff2"),
+  src:
+    url(https://cdn.jsdelivr.net/fontsource/fonts/press-start-2p@latest/latin-400-normal.woff2)
+    format("woff2"),
     url(https://cdn.jsdelivr.net/fontsource/fonts/press-start-2p@latest/latin-400-normal.woff)
-      format("woff");
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    format("woff");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191,
     U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
 /*
  Welcome! Zaggonaut colors originate from these theme variables, feel
- free to change them! 
+ free to change them!
 */
 
 @theme {
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
   --font-display: "press-start-2p", ui-monospace, monospace;
-  --font-serif: "Literata Variable", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-serif:
+    "Literata Variable", ui-serif, Georgia, Cambria, "Times New Roman", Times,
+    serif;
   --color-zag-dark: var(--color-neutral-900);
   --color-zag-dark-opaque: oklch(from var(--color-neutral-900) l c h / 0.5);
   --color-zag-light: var(--color-neutral-100);
@@ -66,11 +71,16 @@
   .zag-transition {
     @media (prefers-reduced-motion: no-preference) {
       transition:
-        background-color var(--zag-transition-duration) var(--zag-transition-timing-function),
-        color var(--zag-transition-duration) var(--zag-transition-timing-function),
-        fill var(--zag-transition-duration) var(--zag-transition-timing-function),
-        border-color var(--zag-transition-duration) var(--zag-transition-timing-function),
-        transform var(--zag-transition-duration) var(--zag-transition-timing-function);
+        background-color var(--zag-transition-duration)
+        var(--zag-transition-timing-function),
+        color var(--zag-transition-duration)
+        var(--zag-transition-timing-function),
+        fill var(--zag-transition-duration)
+        var(--zag-transition-timing-function),
+        border-color var(--zag-transition-duration)
+        var(--zag-transition-timing-function),
+        transform var(--zag-transition-duration)
+        var(--zag-transition-timing-function);
     }
   }
 
@@ -87,7 +97,7 @@
       background-color: var(--color-zag-light);
     }
   }
-  
+
   .zag-text {
     color: var(--color-zag-dark);
     :where(.dark, .dark *) & {
@@ -149,8 +159,17 @@
     display: block;
     z-index: -1;
     background:
-      linear-gradient(90deg, var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) bottom right / var(--dot-space) var(--dot-space),
-      linear-gradient(var(--dot-bg) calc(var(--dot-space) - var(--dot-size)), transparent 1%) bottom right / var(--dot-space) var(--dot-space),
+      linear-gradient(
+        90deg,
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      bottom right / var(--dot-space) var(--dot-space),
+      linear-gradient(
+        var(--dot-bg) calc(var(--dot-space) - var(--dot-size)),
+        transparent 1%
+      )
+      bottom right / var(--dot-space) var(--dot-space),
       var(--dot-color);
     pointer-events: none;
   }
@@ -169,12 +188,22 @@
     height: 100%;
     display: block;
     z-index: -1;
-    background: linear-gradient(159deg, var(--color-zag-light) 0%, var(--color-zag-light) 50%, var(--color-zag-light-opaque) 100%);
+    background: linear-gradient(
+      159deg,
+      var(--color-zag-light) 0%,
+      var(--color-zag-light) 50%,
+      var(--color-zag-light-opaque) 100%
+    );
     pointer-events: none;
   }
 
   :where(.dark, .dark *) .hover-zag-dotted-grid:hover::after {
-    background: linear-gradient(159deg, var(--color-zag-dark) 0%, var(--color-zag-dark) 50%, var(--color-zag-dark-opaque) 100%);
+    background: linear-gradient(
+      159deg,
+      var(--color-zag-dark) 0%,
+      var(--color-zag-dark) 50%,
+      var(--color-zag-dark-opaque) 100%
+    );
   }
 
   .opsz {
