@@ -55,7 +55,7 @@ const { data: config } = await getConfigurationCollection();
             <ProjectSnippet
               title={project.data.title}
               description={project.data.description}
-              url={`${config.site.baseUrl}/projects/${project.data.slug}`}
+              url={`/projects/${project.data.slug}`}
               githubUrl={project.data.githubUrl}
               liveUrl={project.data.liveDemoUrl}
               tags={project.data.tags ?? []}
