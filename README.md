@@ -1,6 +1,6 @@
 ![Zaggonaut, a retro-inspired theme for Astro.](./images/README.png)
 
-Zaggonaut is a retro-inspired theme for Astro, built using TypeScript, TailwindCSS, and of course, Astro.
+Zaggonaut is a retro-inspired black & white theme for Astro, built using TypeScript, TailwindCSS, and of course, Astro.
 
 > [!NOTE]  
 > Introducing Zaggonaut 2.0!

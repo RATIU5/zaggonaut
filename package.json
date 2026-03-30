@@ -1,25 +1,27 @@
 {
-	"name": "zaggonaut",
-	"type": "module",
-	"private": true,
-	"version": "0.0.1",
-	"packageManager": "pnpm@10.6.0",
-	"scripts": {
-		"dev": "astro dev",
-		"build": "astro build",
-		"preview": "astro preview",
-		"astro": "astro",
-		"preinstall": "npx only-allow pnpm"
-	},
-	"dependencies": {
-		"@astrojs/tailwind": "^6.0.2",
-		"@tailwindcss/typography": "^0.5.19",
-		"@tailwindcss/vite": "^4.1.18",
-		"astro": "^5.16.6",
-		"tailwindcss": "^4.1.18",
-		"toml": "^3.0.0"
-	},
-	"devDependencies": {
-		"@types/node": "^22.19.3"
-	}
+  "name": "zaggonaut",
+  "type": "module",
+  "private": true,
+  "version": "0.0.1",
+  "packageManager": "pnpm@10.6.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "preinstall": "npx only-allow pnpm",
+    "format": "biome format --write",
+    "lint": "biome lint --write"
+  },
+  "dependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.2.2",
+    "astro": "^6.1.2",
+    "tailwindcss": "^4.2.2",
+    "toml": "^3.0.0"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.4.10",
+    "@types/node": "^22.19.3"
+  }
 }
